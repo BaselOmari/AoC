@@ -4,8 +4,6 @@ with open("DATA/Day7Data.txt", 'r') as f:
 data = [line.strip() for line in data]
 
 color_rules = []
-
-count = 0
 for rule in data:
     rule_string = rule.split()
     contained_bags = []
@@ -18,4 +16,32 @@ for rule in data:
         
     color_rules.append([rule_string[0] + " " + rule_string[1], contained_bags])
 
-    count += 1
+'''
+How its stored:
+    Each entry has:
+    "BAG NAME STRING", [[BAG COUNT,"BAG NAME STRING"]]
+'''
+
+def bag_counter(bag_rule):
+    for bag in bag_rule[1]:
+        if bag[1] == "shiny gold":
+            return True
+        else:
+            index = 0
+            for i in range(len(color_rules)):
+                if color_rules[i][0] == bag[1]:
+                    index = i
+                    break
+            
+            if bag_counter(color_rules[index]):
+                return True
+    
+    return False
+    
+
+count = 0
+for bag in color_rules:
+    if bag_counter(bag):
+        count += 1
+
+print(count)
