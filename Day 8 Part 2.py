@@ -1,4 +1,4 @@
-with open("DATA/Day8TestData.txt", 'r') as f:
+with open("DATA/Day8Data.txt", 'r') as f:
     data = f.readlines()
 
 data = [line.strip() for line in data]
@@ -44,11 +44,17 @@ def terminates(instructions):
             i += val - 1
         i += 1
 
+
 for i in range(len(data)):
+    nop_bool = False
+    jmp_bool = False
     copy_data = data.copy()
     if copy_data[i][0] == 'nop':
+        nop_bool = True
         copy_data[i][0] = 'jmp'
+
     elif copy_data[i][0] == 'jmp':
+        jmp_bool = True
         copy_data[i][0] = 'nop'
     else:
         continue
@@ -57,3 +63,10 @@ for i in range(len(data)):
     if terminates(copy_data)[0] == True:
         print(terminates(copy_data)[1])
         break
+
+    print(i, "DONE")
+
+    if nop_bool:
+        copy_data[i][0] = 'nop'
+    else:
+        copy_data[i][0] = 'jmp'
