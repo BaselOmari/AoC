@@ -18,15 +18,15 @@ def find_jolt(joltage, add):
 
     for i in data:
         if i == required_jolt:
-            return [True, i]
+            return True
     
-    return [False]
+    return False
 
 diff_list = [0,0,0]
 
 while jolt is not device_jolt:
     for j in range(1,4):
-        if find_jolt(jolt,j)[0] == True:
+        if find_jolt(jolt,j):
             diff_list[j-1] += 1
             jolt += j
             break
