@@ -1,4 +1,4 @@
-with open("DATA/Day12TestData.txt", 'r') as f:
+with open("DATA/Day12Data.txt", 'r') as f:
     data = f.readlines()
 
 data = [line.strip() for line in data]
