@@ -10,6 +10,18 @@ y_val = 0
 w_x = 10
 w_y = 1
 
+def rotate_right(point, times):
+    for i in range(times):
+        point[0], point[1] = point[1], -point[0]
+    
+    return point
+
+def rotate_left(point,times):
+    for i in range(times):
+        point[0],point[1] = -point[1], point[0]
+    
+    return point
+
 for command in data:
     action = command[0]
     value = command[1]
@@ -25,22 +37,11 @@ for command in data:
         w_y += value
     elif action == 'S':
         w_y -= value
-    
-    value //= 90
-    value %= 4
-
-    if value == 1:
-        w_x, w_y = w_y, w_x
-        w_x *= -1
-    elif value == 2:
-        w_x *= -1
-        w_y *= -1
-    elif value == 3:
-        w_x, w_y = w_y, w_x
-        w_y *= -1
-    
-    if action == 'R' and (value == 1 or value == 3):
-        w_x *= -1
-        w_y *= -1
+    elif action == 'R':
+        normalized_value = value//90
+        w_x,w_y = rotate_right([w_x,w_y], normalized_value)
+    elif action == 'L':
+        normalized_value = value//90
+        w_x,w_y = rotate_left([w_x,w_y], normalized_value)
 
 print(abs(x_val)+abs(y_val))
